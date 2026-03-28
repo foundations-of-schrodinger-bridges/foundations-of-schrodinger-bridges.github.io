@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Foundations of Schrödinger Bridges for Generative Modeling - Sophia Tang">
+    <meta name="description"
+        content="A comprehensive guide developing the mathematical foundations of the Schrödinger bridge problem, drawing on optimal transport, stochastic control, and path-space optimization, with direct connections to modern generative modeling.">
+    <meta name="keywords"
+        content="Schrödinger bridge, generative modeling, diffusion models, score-based models, flow matching, optimal transport, stochastic control, path-space optimization, machine learning">
+    <meta name="author" content="Sophia Tang">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Sophia Tang">
+    <meta property="og:title" content="Foundations of Schrödinger Bridges for Generative Modeling">
+    <meta property="og:description"
+        content="A comprehensive guide developing the mathematical foundations of the Schrödinger bridge problem, with direct connections to modern generative modeling.">
+    <meta property="og:url" content="https://sophtang.github.io/foundations-of-sbm">
+    <meta property="og:image" content="https://sophtang.github.io/foundations-of-sbm/static/images/foundations-sbm.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Foundations of Schrödinger Bridges for Generative Modeling">
+    <meta property="article:published_time" content="2026-03-19T00:00:00.000Z">
+    <meta property="article:author" content="Sophia Tang">
+    <meta property="article:section" content="Research">
+    <meta property="article:tag" content="Schrödinger bridge">
+    <meta property="article:tag" content="generative modeling">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@sophtang_">
+    <meta name="twitter:creator" content="@sophtang_">
+    <meta name="twitter:title" content="Foundations of Schrödinger Bridges for Generative Modeling">
+    <meta name="twitter:description"
+        content="A comprehensive guide developing the mathematical foundations of the Schrödinger bridge problem, with direct connections to modern generative modeling.">
+    <meta name="twitter:image" content="https://sophtang.github.io/foundations-of-sbm/static/images/foundations-sbm.png">
+    <meta name="twitter:image:alt" content="Foundations of Schrödinger Bridges for Generative Modeling">
+
+    <!-- Academic/Research Specific -->
+    <meta name="citation_title" content="Foundations of Schrödinger Bridges for Generative Modeling">
+    <meta name="citation_author" content="Tang, Sophia">
+    <meta name="citation_publication_date" content="2026">
+    <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2603.18992">
+
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#7c3aed">
+    <meta name="msapplication-TileColor" content="#7c3aed">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://ajax.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+    <title>Foundations of Schrödinger Bridges for Generative Modeling</title>
+
+    <!-- Favicon and App Icons -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
+    <link rel="apple-touch-icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
+
+    <!-- Critical CSS - Load synchronously -->
+    <link rel="stylesheet" href="static/css/bulma.min.css">
+    <link rel="stylesheet" href="static/css/index.css">
+
+    <!-- Non-critical CSS - Load asynchronously -->
+    <link rel="preload" href="static/css/bulma-carousel.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="static/css/bulma-slider.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="static/css/fontawesome.all.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- Fallback for browsers that don't support preload -->
+    <noscript>
+        <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+        <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+        <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    </noscript>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- KaTeX for math equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+
+    <!-- Defer non-critical JavaScript -->
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="static/js/fontawesome.all.min.js"></script>
+    <script defer src="static/js/bulma-carousel.min.js"></script>
+    <script defer src="static/js/bulma-slider.min.js"></script>
+    <script defer src="static/js/index.js"></script>
+
+    <!-- TOC Accordion Controls -->
+    <script>
+    function expandAllToc() {
+      document.querySelectorAll('.toc-item').forEach(d => d.open = true);
+    }
+    function collapseAllToc() {
+      document.querySelectorAll('.toc-item').forEach(d => d.open = false);
+    }
+    </script>
+
+    <!-- Structured Data for Academic Papers -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Foundations of Schrödinger Bridges for Generative Modeling",
+    "description": "A comprehensive guide developing the mathematical foundations of the Schrödinger bridge problem, drawing on optimal transport, stochastic control, and path-space optimization, with direct connections to modern generative modeling.",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Sophia Tang",
+        "affiliation": { "@type": "Organization", "name": "University of Pennsylvania" }
+      }
+    ],
+    "datePublished": "2026-03-19",
+    "url": "https://sophtang.github.io/foundations-of-sbm",
+    "image": "https://sophtang.github.io/foundations-of-sbm/static/images/foundations-sbm.png",
+    "keywords": ["Schrödinger bridge", "generative modeling", "diffusion models", "score-based models", "flow matching", "optimal transport", "stochastic control"],
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/"
+  }
+  </script>
+</head>
+
+<body>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <main id="main-content">
+
+        <!-- Hero / Title -->
+        <section class="hero">
+            <div class="hero-body">
+                <div class="container is-max-desktop">
+                    <div class="columns is-centered">
+                        <div class="column has-text-centered">
+                            <h1 class="title is-1 publication-title">Foundations of Schr&ouml;dinger Bridges for Generative Modeling</h1>
+
+                            <div class="is-size-5 publication-authors">
+                                <span class="author-block">
+                                    by <a href="https://sophtang.github.io/" target="_blank">Sophia
+                                        Tang</a></span>
+                                <br>
+                                <span style="font-size: 1rem; color: #030072;">Correspondence to: <a href="mailto:sophtang@seas.upenn.edu">sophtang@seas.upenn.edu</a></span>
+                            </div>
+                            <p class="subtitle is-5" style="color: #555; max-width: 720px; margin: 0 auto 1.2rem; line-height: 1.6;">
+                                This <strong>comprehensive guide</strong> (220 pages, 24 figures) covers the mathematical foundation of Schr&ouml;dinger bridges as a unifying principle underlying modern generative modeling techniques.
+                            </p>
+
+                            <div class="column has-text-centered">
+                                <div class="publication-links">
+                                    <!-- Paper PDF -->
+                                    <span class="link-block">
+                                        <a href="https://arxiv.org/pdf/2603.18992" target="_blank"
+                                            class="external-link button is-normal is-rounded is-dark">
+                                            <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                                            <span>Paper</span>
+                                        </a>
+                                    </span>
+
+                                    <!-- arXiv -->
+                                    <span class="link-block">
+                                        <a href="https://arxiv.org/abs/2603.18992" target="_blank"
+                                            class="external-link button is-normal is-rounded is-dark">
+                                            <span class="icon"><i class="ai ai-arxiv"></i></span>
+                                            <span>arXiv</span>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Cover Image -->
+        <section class="hero is-light">
+            <div class="container is-max-desktop">
+                <div class="hero-body has-text-centered">
+                    <div class="cover-wrapper">
+                        <div class="cover-glow"></div>
+                        <div class="cover-frame">
+                            <div class="cover-border"></div>
+                            <img src="static/images/forward.png"
+                                alt="Generation: noise to data"
+                                class="cover-image cover-forward">
+                            <img src="static/images/reverse.png"
+                                alt="Reverse: data to noise"
+                                class="cover-image cover-reverse">
+                        </div>
+                        <div class="cover-labels">
+                            <span class="cover-label label-forward">Forward &rarr;</span>
+                            <span class="cover-label label-reverse">&larr; Reverse</span>
+                        </div>
+                        <div class="cover-particles">
+                            <span class="particle" style="--x: 8%; --y: 15%; --delay: 0s; --size: 6px;"></span>
+                            <span class="particle" style="--x: 92%; --y: 20%; --delay: 1.2s; --size: 4px;"></span>
+                            <span class="particle" style="--x: 5%; --y: 75%; --delay: 2.4s; --size: 5px;"></span>
+                            <span class="particle" style="--x: 95%; --y: 80%; --delay: 0.8s; --size: 7px;"></span>
+                            <span class="particle" style="--x: 15%; --y: 45%; --delay: 1.8s; --size: 3px;"></span>
+                            <span class="particle" style="--x: 88%; --y: 50%; --delay: 3s; --size: 5px;"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Overview -->
+        <section class="section">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column is-full-width">
+                        <h2 class="title is-3 has-text-centered">About This Guide</h2>
+                        <div class="content has-text-justified">
+                            <p>
+                                The field of generative modeling has experienced rapid and transformative progress in
+                                recent years. Advances range from foundational theoretical developments&mdash;such as
+                                diffusion models and flow matching&mdash;to algorithmic improvements in sampling speed
+                                and generation quality, as well as significant applications spanning language, video, and
+                                scientific domains. While this breadth of progress has driven remarkable innovation, it
+                                has also made the field increasingly complex and difficult to navigate, particularly from
+                                a foundational perspective.
+                            </p>
+                            <p>
+                                In this guide, we introduce <strong>Schr&ouml;dinger bridges as a unifying theoretical
+                                framework for generative modeling</strong>. This perspective generalizes a broad class of
+                                modern approaches&mdash;including diffusion models, flow-matching methods, and stochastic
+                                control formulations&mdash;while providing a principled and flexible foundation for
+                                addressing specialized scientific problems. The body of work that has built the
+                                Schr&ouml;dinger bridge framework spans multiple fields, from theoretical developments
+                                that formalize path-space optimization and entropy-regularized transport, to principled
+                                extensions in diverse problem settings, to algorithmic advances that enable scalable
+                                training and inference. Despite this progress, the literature remains fragmented, and the
+                                relationships between different formulations are often difficult to identify.
+                            </p>
+                            <p>
+                                The goal of this guide is to build both intuition and a deep mathematical understanding
+                                of the core principles of Schr&ouml;dinger bridges, from its origins in optimal transport
+                                to its dynamic path space formulation, which underlies modern generative modeling
+                                frameworks. At a high level, we begin from a <strong>single unifying principle</strong>:
+                                optimal stochastic bridges between distributions can be characterized as minimal-entropy
+                                deviations from a reference process subject to marginal constraints. From this
+                                perspective, we develop the mathematical tools spanning optimal transport, probability
+                                theory, and stochastic calculus required to understand the static and dynamic formulations
+                                of the Schr&ouml;dinger bridge problem, before naturally extending these ideas to diverse
+                                problem settings and modern generative modeling techniques. Throughout this guide, we
+                                construct a principled toolkit for building Schr&ouml;dinger bridges from first principles
+                                and show how these constructions give rise to theoretically-grounded and scalable
+                                computational methods for simulating the optimal Schr&ouml;dinger bridge dynamics.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Table of Contents -->
+        <section class="section hero is-light">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column is-full-width">
+                        <h2 class="title is-3 has-text-centered">Table of Contents</h2>
+                        <div class="content has-text-justified">
+                            <p style="text-align: center;">This guide contains eight primary sections. See what each section covers by expanding the details below.</p>
+
+                            <div class="toc-expand-controls has-text-centered" style="margin-bottom: 1rem;">
+                                <button class="button is-small is-rounded is-dark" onclick="expandAllToc()">Expand All</button>
+                                <button class="button is-small is-rounded is-dark" onclick="collapseAllToc()">Collapse All</button>
+                            </div>
+
+                            <div class="toc-accordion">
+
+                                <!-- Section 1 -->
+                                <details class="toc-item">
+                                    <summary class="toc-header">
+                                        <span class="toc-number">1</span>
+                                        <span class="toc-title">The Static Schrödinger Bridge Problem</span>
+                                        <span class="toc-chevron"><i class="fas fa-chevron-down"></i></span>
+                                    </summary>
+                                    <div class="toc-body">
+                                        <p>We start our deep dive into Schr&ouml;dinger bridges by tracing to its origins in optimal mass transport (OMT), which seeks the best coupling between distributions. However, classical OT can be unstable and non-unique, making it difficult to use in practice.</p>
+                                        <p>By introducing entropy regularization, we obtain entropic OT, leading to the static Schr&ouml;dinger bridge formulation. This yields a unique, stable solution that can be efficiently computed with the classic Sinkhorn, forming the foundation of everything that follows.</p>
+                                        <ul class="toc-subsections">
+                                            <li><span class="toc-sub-number">1.1</span> <strong>The Optimal Mass Transport Problem</strong>: traces back to the classical optimal mass transport (OMT) problem posed by Monge and Kantorovich, which seeks an optimal static coupling between probability distributions that minimizes total transport cost.</li>
+                                            <li><span class="toc-sub-number">1.2</span> <strong>Entropy on Probability Spaces</strong>: introduces the foundational properties of entropy on probability spaces, including the fundamental properties of the Kullback&ndash;Leibler (KL) divergence.</li>
+                                            <li><span class="toc-sub-number">1.3</span> <strong>Entropic Optimal Transport Problem</strong>: introduces the entropic optimal transport (EOT) problem, which leverages entropy as a method of regularizing the OMT problem with a pre-defined reference coupling, which yields a unique solution.</li>
+                                            <li><span class="toc-sub-number">1.4</span> <strong>Static Schr&ouml;dinger Bridge Problem</strong>: extends the EOT problem to formalize the static Schr&ouml;dinger bridge problem and its corresponding dual problem, which introduces a pair of Schr&ouml;dinger potentials that uniquely yield a clean form of the optimal solution.</li>
+                                            <li><span class="toc-sub-number">1.5</span> <strong>Sinkhorn&rsquo;s Algorithm</strong>: breaks down the classic algorithm for solving the static SB problem, which alternates between optimizing the dual Schr&ouml;dinger potentials.</li>
+                                        </ul>
+                                    </div>
+                                </details>
+
+                                <!-- Section 2 -->
+                                <details class="toc-item">
+                                    <summary class="toc-header">
+                                        <span class="toc-number">2</span>
+                                        <span class="toc-title">The Dynamic Schr&ouml;dinger Bridge Problem</span>
+                                        <span class="toc-chevron"><i class="fas fa-chevron-down"></i></span>
+                                    </summary>
+                                    <div class="toc-body">
+                                        <p>We next move to the dynamic formulation of the Schr&ouml;dinger bridge problem, which lifts the problem from static couplings to continuous-time stochastic processes between distributions. Instead of directly transporting mass, we ask: <em>among all stochastic evolutions that transform an initial distribution into a target distribution, which one is most likely relative to a given reference dynamics?</em></p>
+                                        <p>In this section, we formalize this dynamic viewpoint and develop the stochastic calculus tools&mdash;including path measures, It&ocirc; processes, and change-of-measure techniques&mdash;necessary to analyze and solve the dynamic SB problem.</p>
+                                        <ul class="toc-subsections">
+                                            <li><span class="toc-sub-number">2.1</span> <strong>Dynamic Optimal Transport Problem</strong>: starts by redefining the static SB problem as learning a continuous-time deterministic flow between distributions.</li>
+                                            <li><span class="toc-sub-number">2.2</span> <strong>Dynamic Schr&ouml;dinger Bridge Problem</strong>: reformulates the SB problem as an entropy minimization over stochastic processes.</li>
+                                            <li><span class="toc-sub-number">2.3</span> <strong>Path Measures and It&ocirc; Processes</strong>: provides the key definitions and theory required for understanding path measures as stochastic differential equations (SDEs) that can be <em>steered</em> via control drifts and <em>transformed</em> through functions.</li>
+                                            <li><span class="toc-sub-number">2.4</span> <strong>Fokker&ndash;Planck and Feynman&ndash;Kac Equations</strong>: derives the Fokker&ndash;Planck equation, governing how the probability density over stochastic paths evolves forward in time, and the Feynman&ndash;Kac equation, governing how functions evaluated at the end of a stochastic process evolve backward in time.</li>
+                                            <li><span class="toc-sub-number">2.5</span> <strong>Girsanov&rsquo;s Theorem</strong>: derives Girsanov&rsquo;s theorem from first principles, which allows us to define changes in measure and KL divergences on path space.</li>
+                                            <li><span class="toc-sub-number">2.6</span> <strong>Path Measure Radon-Nikodym Derivative and KL Divergence</strong>: explicitly breaks down the theory of Radon&ndash;Nikodym derivatives between path measures, used to define the <em>relative-entropy</em> between path measures.</li>
+                                            <li><span class="toc-sub-number">2.7</span> <strong>Schr&ouml;dinger Bridge with Arbitrary Reference Dynamics</strong>: introduces the explicit form of the dynamic Schr&ouml;dinger bridge problem as minimizing the quadratic cost of the control drift and derives its optimality conditions via the Lagrangian.</li>
+                                            <li><span class="toc-sub-number">2.8</span> <strong>Hopf&ndash;Cole Transform</strong>: transforms the system of nonlinear Hamilton&ndash;Jacobi&ndash;Bellman and Fokker&ndash;Planck PDEs into a system of linear PDEs which define a pair of time-dependent Schr&ouml;dinger potentials that solve the dynamic SB problem.</li>
+                                            <li><span class="toc-sub-number">2.9</span> <strong>Schr&ouml;dinger Bridges as Entropy-Regularized Dynamic Optimal Transport</strong>: reformulates the dynamic Schr&ouml;dinger bridge problem as an entropy-regularized dynamic optimal transport problem by absorbing the diffusion term in the Fokker&ndash;Planck constraint into the objective functional.</li>
+                                        </ul>
+                                    </div>
+                                </details>
+
+                                <!-- Section 3 -->
+                                <details class="toc-item">
+                                    <summary class="toc-header">
+                                        <span class="toc-number">3</span>
+                                        <span class="toc-title">Schrödinger Bridge Problem as Optimal Control</span>
+                                        <span class="toc-chevron"><i class="fas fa-chevron-down"></i></span>
+                                    </summary>
+                                    <div class="toc-body">
+                                        <p>The key idea explored in this section is that the Schr&ouml;dinger bridge problem can be solved with stochastic optimal control (SOC), which defines a path-space variational objective that minimizes a running cost and terminal constraint generated by a controlled SDE.</p>
+                                        <p>Crucially, the quadratic control cost is exactly a KL divergence between path measures. This reframes SB as learning minimal deviations from a reference process, without ever needing explicit couplings. We break down the dynamic programming theory and practical objectives for solving the SB problem with SOC.</p>
+                                        <ul class="toc-subsections">
+                                            <li><span class="toc-sub-number">3.1</span> <strong>Stochastic Optimal Control</strong>: introduces the general framework of stochastic optimal control, including Bellman&rsquo;s Principle of Optimality given a terminal constraint and deriving the value function that defines the optimal control.</li>
+                                            <li><span class="toc-sub-number">3.2</span> <strong>Schr&ouml;dinger Bridges with Stochastic Optimal Control</strong>: connects the Schr&ouml;dinger bridge problem to stochastic optimal control, showing that the optimal bridge corresponds to an optimal control drift.</li>
+                                            <li><span class="toc-sub-number">3.3</span> <strong>Objectives for Solving the SOC Problem</strong>: develops practical objectives for solving the stochastic optimal control problem.</li>
+                                        </ul>
+                                    </div>
+                                </details>
+
+                                <!-- Section 4 -->
+                                <details class="toc-item">
+                                    <summary class="toc-header">
+                                        <span class="toc-number">4</span>
+                                        <span class="toc-title">Building Schrödinger Bridges</span>
+                                        <span class="toc-chevron"><i class="fas fa-chevron-down"></i></span>
+                                    </summary>
+                                    <div class="toc-body">
+                                        <p>The theory tells us what SB is, but how do we construct it? This section covers several complementary mechanisms for building stochastic bridges between prescribed endpoint distributions, including mixtures of bridges, time-reversal, forward&ndash;backward SDEs, Doob&rsquo;s $h$-transform, Markovian and reciprocal projections, and stochastic interpolants.</p>
+                                        <p>While each approach originates from a different mathematical viewpoint, they ultimately converge to a unified form of a Markov control drift that minimally corrects the uncontrolled reference dynamics such that they reconstruct the prescribed marginal distributions.</p>
+                                        <ul class="toc-subsections">
+                                            <li><span class="toc-sub-number">4.1</span> <strong>Mixture of Conditional Bridges</strong>: introduces mixtures of conditional bridges constructed with the reference process and a pre-defined endpoint coupling.</li>
+                                            <li><span class="toc-sub-number">4.2</span> <strong>Time Reversal</strong>: derives the time-reversal formula of SDEs, which is fundamental to backward dynamics in Schr&ouml;dinger bridges.</li>
+                                            <li><span class="toc-sub-number">4.3</span> <strong>Forward&ndash;Backward Stochastic Differential Equations</strong>: introduces forward&ndash;backward stochastic differential equations (FBSDEs), providing a coupled characterization of the Schr&ouml;dinger bridge with respect to the time-dependent Schr&ouml;dinger potentials.</li>
+                                            <li><span class="toc-sub-number">4.4</span> <strong>Doob&rsquo;s $h$-Transform</strong>: presents Doob&rsquo;s $h$-transform, which constructs conditioned stochastic processes by tilting the reference process using the $h$-function.</li>
+                                            <li><span class="toc-sub-number">4.5</span> <strong>Markovian and Reciprocal Projections</strong>: formalizes Markovian and reciprocal projections, which perform entropy-minimizing projections in path space that converge to the optimal Schr&ouml;dinger bridge measure.</li>
+                                            <li><span class="toc-sub-number">4.6</span> <strong>Stochastic Interpolants to Schr&ouml;dinger Bridges</strong>: introduces stochastic interpolants, providing a practical way to construct bridges between distributions as deterministic interpolants with Gaussian noise.</li>
+                                        </ul>
+                                    </div>
+                                </details>
+
+                                <!-- Section 5 -->
+                                <details class="toc-item">
+                                    <summary class="toc-header">
+                                        <span class="toc-number">5</span>
+                                        <span class="toc-title">Variations of the Schrödinger Bridge Problem</span>
+                                        <span class="toc-chevron"><i class="fas fa-chevron-down"></i></span>
+                                    </summary>
+                                    <div class="toc-body">
+                                        <p>The dynamic SB problem is just the beginning. In this section, we break down extensions of the SB framework to specialized problem settings, including Gaussian marginals, mean-field interactions, multi-marginal constraints, unbalanced marginals, branched and multi-modal marginals, and fractional Brownian motion.</p>
+                                        <p>Each problem adapts the dynamic SB formulation to different constraints while maintaining the same variational principles, illustrating the flexibility of the Schr&ouml;dinger bridge framework in describing complex dynamical systems.</p>
+                                        <ul class="toc-subsections">
+                                            <li><span class="toc-sub-number">5.1</span> <strong>Gaussian Schr&ouml;dinger Bridge Problem</strong>: studies the Gaussian Schr&ouml;dinger bridge problem, which admits closed-form solutions.</li>
+                                            <li><span class="toc-sub-number">5.2</span> <strong>Generalized Schr&ouml;dinger Bridge Problem</strong>: introduces the generalized Schr&ouml;dinger bridge problem which generalizes the dynamic formulation to model mean-field interactions.</li>
+                                            <li><span class="toc-sub-number">5.3</span> <strong>Multi-Marginal Schr&ouml;dinger Bridge Problem</strong>: introduces the multi-marginal Schr&ouml;dinger bridge problem, which extends the framework to settings with multiple intermediate marginal constraints.</li>
+                                            <li><span class="toc-sub-number">5.4</span> <strong>Unbalanced Schr&ouml;dinger Bridge Problem</strong>: develops the unbalanced Schr&ouml;dinger bridge problem, allowing mass creation and destruction along the stochastic trajectories.</li>
+                                            <li><span class="toc-sub-number">5.5</span> <strong>Branched Schr&ouml;dinger Bridge Problem</strong>: introduces the branched Schr&ouml;dinger bridge problem, enabling modeling of diverging trajectories to multiple distinct terminal modes.</li>
+                                            <li><span class="toc-sub-number">5.6</span> <strong>Fractional Schr&ouml;dinger Bridge Problem</strong>: studies fractional Schr&ouml;dinger bridge problems, incorporating long-range temporal dependencies through fractional Brownian motion.</li>
+                                        </ul>
+                                    </div>
+                                </details>
+
+                                <!-- Section 6 -->
+                                <details class="toc-item">
+                                    <summary class="toc-header">
+                                        <span class="toc-number">6</span>
+                                        <span class="toc-title">Generative Modeling with Schrödinger Bridges</span>
+                                        <span class="toc-chevron"><i class="fas fa-chevron-down"></i></span>
+                                    </summary>
+                                    <div class="toc-body">
+                                        <p>Modern generative models can all be interpreted as constructing Schr&ouml;dinger bridges. Diffusion models, score matching, and flow matching are different parameterizations addressing the problem of learning controlled stochastic dynamics that interpolate between an initial and a target distribution while minimizing relative entropy with respect to a reference process.</p>
+                                        <p>This section breaks down several generative modeling techniques for solving the dynamic SB problem, from likelihood-based training to adjoint matching, highlighting how Schrödinger bridges unify these methods under a single framework.</p>
+                                        <ul class="toc-subsections">
+                                            <li><span class="toc-sub-number">6.1</span> <strong>A Primer on Score-Based Generative Modeling</strong>: provides a primer on score-based generative modeling, which learns gradients of log-densities.</li>
+                                            <li><span class="toc-sub-number">6.2</span> <strong>Likelihood Training of Forward&ndash;Backward SDEs</strong>: introduces likelihood training of forward&ndash;backward SDEs, which trains the forward and backward potential drifts with likelihood objectives.</li>
+                                            <li><span class="toc-sub-number">6.3</span> <strong>Diffusion Schrödinger Bridge Matching</strong>: develops diffusion Schrödinger bridge matching, which parameterizes the Iterative Markovian Fitting procedure with a learned Markov drift.</li>
+                                            <li><span class="toc-sub-number">6.4</span> <strong>Simulation-Free Score and Flow Matching</strong>: introduces simulation-free score and flow matching, enabling training of Schr&ouml;dinger bridges without simulating full trajectories.</li>
+                                            <li><span class="toc-sub-number">6.5</span> <strong>Schr&ouml;dinger Bridge with Adjoint Matching</strong>: presents adjoint matching, which learns the optimal Schr&ouml;dinger bridge while avoiding explicit sampling from target distributions.</li>
+                                        </ul>
+                                    </div>
+                                </details>
+
+                                <!-- Section 7 -->
+                                <details class="toc-item">
+                                    <summary class="toc-header">
+                                        <span class="toc-number">7</span>
+                                        <span class="toc-title">From Continuous to Discrete State Space</span>
+                                        <span class="toc-chevron"><i class="fas fa-chevron-down"></i></span>
+                                    </summary>
+                                    <div class="toc-body">
+                                        <p>We now extend SB from continuous state spaces to discrete state spaces, which can be used to model sequences of tokens, graphs, and discrete distributions. Establishing discrete state path measures not as SDEs but as continuous-time Markov chains (CTMCs) defined by their rate matrices, the discrete SB problem becomes optimizing a jump process that minimizes KL divergence from a reference process.</p>
+                                        <p>Despite this shift, the same foundational principles apply. We show how the discrete Schrödinger bridge problem can be solved using stochastic optimal control (SOC) and Markovian and reciprocal projections, closely mirroring the continuous setting.</p>
+                                        <ul class="toc-subsections">
+                                            <li><span class="toc-sub-number">7.1</span> <strong>Continuous-Time Markov Chains</strong>: introduces continuous-time Markov chains (CTMCs) as discrete analogues of stochastic processes.</li>
+                                            <li><span class="toc-sub-number">7.2</span> <strong>Discrete Schr&ouml;dinger Bridge Problem</strong>: formulates the discrete Schr&ouml;dinger bridge problem, introducing Radon–Nikodym derivatives and KL divergences for CTMCs.</li>
+                                            <li><span class="toc-sub-number">7.3</span> <strong>Stochastic Optimal Control of CTMCs</strong>: develops stochastic optimal control for CTMCs as a method of learning the optimal CTMC path measure with terminal constraint.</li>
+                                            <li><span class="toc-sub-number">7.4</span> <strong>Discrete Schr&ouml;dinger Bridges with Stochastic Optimal Control</strong>: connects discrete Schr&ouml;dinger bridges with stochastic optimal control and introduces practical algorithms and objectives.</li>
+                                            <li><span class="toc-sub-number">7.5</span> <strong>Discrete Markov and Reciprocal Projections</strong>: introduces Markovian and reciprocal projections in discrete spaces.</li>
+                                            <li><span class="toc-sub-number">7.6</span> <strong>Discrete Diffusion Schr&ouml;dinger Bridge Matching</strong>: develops discrete diffusion Schr&ouml;dinger bridge matching, which parameterizes the Markovian and reciprocal generators to solve the discrete Schr&ouml;dinger bridge.</li>
+                                        </ul>
+                                    </div>
+                                </details>
+
+                                <!-- Section 8 -->
+                                <details class="toc-item">
+                                    <summary class="toc-header">
+                                        <span class="toc-number">8</span>
+                                        <span class="toc-title">Applications of Generative Modeling with Schr&ouml;dinger Bridges</span>
+                                        <span class="toc-chevron"><i class="fas fa-chevron-down"></i></span>
+                                    </summary>
+                                    <div class="toc-body">
+                                        <p>While Schr&ouml;dinger bridges can be seen as a unified framework for generative modeling techniques, from denoising diffusion to flow matching, there are several applications where Schr&ouml;dinger bridge frameworks are specialized to solve.</p>
+                                        <p>We highlight three prominent applications where advances in Schr&ouml;dinger bridges have led to principled and practically effective solutions, including data translation, single-cell modeling, and sampling complex energy landscapes.</p>
+                                        <ul class="toc-subsections">
+                                            <li><span class="toc-sub-number">8.1</span> <strong>Data Translation</strong>: applies SB to data translation tasks, which map between structured data distributions.</li>
+                                            <li><span class="toc-sub-number">8.2</span> <strong>Modeling Single-Cell State Dynamics</strong>: studies single-cell state dynamics, showing how Schr&ouml;dinger bridge formulations can model cell population dynamics and responses to perturbation.</li>
+                                            <li><span class="toc-sub-number">8.3</span> <strong>Sampling Boltzmann Distributions</strong>: applies SB to sampling Boltzmann distributions, showing how the SB frameworks can generate from unnormalized energy distributions without explicit samples.</li>
+                                        </ul>
+                                    </div>
+                                </details>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- BibTeX -->
+        <section class="section" id="BibTeX">
+            <div class="container is-max-desktop content">
+                <div class="bibtex-header">
+                    <h2 class="title">BibTeX</h2>
+                    <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+                        <i class="fas fa-copy"></i>
+                        <span class="copy-text">Copy</span>
+                    </button>
+                </div>
+                <pre id="bibtex-code"><code>@article{tang2026foundations,
+  title={Foundations of Schr\"{o}dinger Bridges for Generative Modeling},
+  author={Tang, Sophia},
+  journal={arXiv preprint arXiv:2603.18992},
+  year={2026},
+  url={https://arxiv.org/abs/2603.18992}
+}</code></pre>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="content">
+                        <p>
+                            This page was built using the <a
+                                href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                                target="_blank">Academic Project Page Template</a> which was adopted from the <a
+                                href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+                            This website is licensed under a <a rel="license"
+                                href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons
+                                Attribution-ShareAlike 4.0 International License</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
